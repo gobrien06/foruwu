@@ -4,7 +4,7 @@ import { useUserStore } from "../../store";
 import "./Navigation.css";
 
 const Navigation = () => {
-  const loggedIn = useUserStore((state) => state.loggedIn);
+  const loggedIn = useUserStore((state) => state.isAuthenticated);
 
   return (
     <div className="bar">

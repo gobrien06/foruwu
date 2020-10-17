@@ -1,9 +1,9 @@
 import React from "react";
 import { Route, Redirect, RouteProps } from "react-router-dom";
-import { useAuthStore } from "../store";
+import { useUserStore } from "../store";
 
 const AuthRoute = ({ component: Component, ...rest }: RouteProps) => {
-  const isAuth = useAuthStore((state) => state.isAuthenticated);
+  const isAuth = useUserStore((state) => state.isAuthenticated);
   if (!Component) return null;
   return (
     <Route
