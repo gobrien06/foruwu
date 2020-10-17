@@ -28,4 +28,4 @@ const lightMode = {
     tertiaryBackground:'#2C2C2E',
 }
 
-export default colors;
+export default {colors, lightMode, darkMode};

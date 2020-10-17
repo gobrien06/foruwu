@@ -1,18 +1,35 @@
-.headerIcon{
-    height:9vh;
-    margin-left:5vh;
-    margin-top:-1vh;
-    margin-right:5vh;
+.headerIcon {
+  height: 9vh;
+  margin-left: 3vw;
+  margin-top: -1vh;
+  margin-right: 3vw;
 }
 
-.headerText{
-    font-size:3rem;
+.profileIcon {
+  height: 6vh;
 }
 
-.bar{
-    margin-bottom:5vh;
-    display:flex;
-    align-items: center;
-    width:100%;
+.headerText {
+  font-size: 3rem;
+}
 
+.bar {
+  margin-top: 2vh;
+  margin-bottom: 2vh;
+  height: 10vh;
+  display: flex;
+  align-items: center;
+  width: 100%;
+}
+
+.holdRight {
+  margin-left: auto;
+  margin-right: 3vw;
+}
+
+h2,
+h3 {
+  display: inline;
+  margin-right: 1vh;
+  margin-left: 1vh;
 }

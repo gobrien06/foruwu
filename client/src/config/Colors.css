@@ -1,0 +1,17 @@
+:root {
+  /*Light Mode Colors*/
+  --pink: #ff3b30;
+  --purple: #a35dd7;
+  --blue: #2e7df7;
+  --teal: #008fb2;
+  --green: #469f3d;
+  --yellow: #F6E54C;
+  --orange: #f0681e;
+  --red: #ee586b;
+  --primaryFill: #747480;
+  --secondaryFill: #767680;
+  --tertiaryFill: #787880;
+  --primaryBackground: #000000;
+  --secondaryBackground: #EFEFF4;
+  --tertiaryBackground: #DBDBDB;
+}
