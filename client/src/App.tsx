@@ -7,6 +7,7 @@ import Landing from "./pages/Landing";
 import Signin from "./pages/Signin";
 import Signup from "./pages/Signup";
 import Products from "./pages/Products";
+import Profile from "./pages/Profile";
 import Bazaar from "./pages/Bazaar";
 import { useUserStore } from "./store";
 import "./pages/PageStyles.css";
@@ -24,6 +25,7 @@ function App() {
         <Route exact path="/signup" component={Signup} />
         <AuthRoute exact path="/bazaar" component={Bazaar} />
         <AuthRoute exact path="/products" component={Products} />
+        <AuthRoute exact path="/profile" component={Profile} />
       </Switch>
     </div>
   );

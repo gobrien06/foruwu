@@ -1,0 +1,16 @@
+.storeContain{
+    border-radius:15px;
+    height:50vh;
+    width:35vw;
+    margin:auto;
+    margin-bottom:3vh;
+    color:Black;
+    background-color: white;
+    text-align:center;
+}
+
+.header{
+    height:15vh;
+    border-radius:15px;
+    background-color: var(--pink);
+}

@@ -8,9 +8,15 @@ const Navigation = () => {
 
   return (
     <div className="bar">
-      <Link to='/'>
-        <img src="./truck.svg" className="headerIcon" alt="headerIcon" />
-      </Link>
+      {loggedIn ? (
+        <Link to="/bazaar">
+          <img src="./truck.svg" className="headerIcon" alt="headerIcon" />
+        </Link>
+      ) : (
+        <Link to="/">
+          <img src="./truck.svg" className="headerIcon" alt="headerIcon" />
+        </Link>
+      )}
       <h1 className="headerText">ForUwU</h1>
       <div className="holdRight">
         {loggedIn ? (

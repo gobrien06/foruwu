@@ -7,7 +7,7 @@ const Signin = () => {
   const history = useHistory();
   const isAuth = useUserStore((state) => state.isAuthenticated);
   const errors = useUserStore((state) => state.errors);
-  const login = useUserStore((state)=> state.login);
+  const login = useUserStore((state) => state.login);
   const setLoading = useUserStore((state) => state.setLoading);
 
   const [state, setState] = useState({
@@ -21,7 +21,6 @@ const Signin = () => {
       history.push("/bazaar");
     }
   };
-
 
   const handleInputChange = (event) => {
     const { value, name } = event.target;
@@ -41,13 +40,29 @@ const Signin = () => {
     await login(user);
     console.log("user in component" + user);
     setState({
-      email:'',
-      password:'',
-    })
+      email: "",
+      password: "",
+    });
     setLoading(false);
   };
-  
-  useEffect(checkAuth, [errors]);
+
+  useEffect(()=>{
+    let isCancelled = false;
+    const getData =  () => {
+      try {
+        setLoading(true);
+        if (!isCancelled) checkAuth();
+      } catch (error) {
+        if (!isCancelled) console.log(error);
+      } finally {
+        setLoading(false);
+      }
+    };
+    getData();
+    return () => {
+      isCancelled = true;
+    };
+  }, [isAuth]);
 
   return (
     <>
