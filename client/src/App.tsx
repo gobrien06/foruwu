@@ -1,6 +1,6 @@
 import React from "react";
 import Spinner from "react-spinkit";
-import { BrowserRouter, Route, Switch } from "react-router-dom";
+import { Route, Switch } from "react-router-dom";
 import AuthRoute from "./Routes/AuthRoute";
 import Navigation from "./components/Navigation/Navigation";
 import Landing from "./pages/Landing";
@@ -9,7 +9,7 @@ import Signup from "./pages/Signup";
 import Products from "./pages/Products";
 import Bazaar from "./pages/Bazaar";
 import { useUserStore } from "./store";
-
+import "./pages/PageStyles.css";
 import "./App.css";
 
 function App() {

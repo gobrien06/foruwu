@@ -1,15 +1,15 @@
 import React from "react";
 import { Route, Redirect, RouteProps } from "react-router-dom";
-import { useAuthState } from "../store";
+import { useAuthStore } from "../store";
 
 const AuthRoute = ({ component: Component, ...rest }: RouteProps) => {
-  const isAuth = useAuthState((state) => state.isAuthenticated);
+  const isAuth = useAuthStore((state) => state.isAuthenticated);
   if (!Component) return null;
   return (
     <Route
       {...rest}
       render={(props) =>
-        isAuth ? <Component {...props} /> : <Redirect to="/login" />
+        isAuth ? <Component {...props} /> : <Redirect to="/signin" />
       }
     />
   );
