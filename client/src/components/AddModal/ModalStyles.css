@@ -1,0 +1,31 @@
+.quitButton {
+  border: 0;
+  height: 10vh;
+  width: 10vh;
+  box-shadow: 2px 1px 3px var(--tertiaryFill);
+  border-radius: 15px;
+  background-color: white;
+  font-size: 1rem;
+  margin-left: 1vw;
+}
+
+.modal {
+  padding: 4vh;
+  width: 70vw;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) !important;
+  border-radius: 15px;
+  background: white;
+  box-shadow: 2px 1px 3px var(--tertiaryFill);
+  animation-name: modalFade;
+  animation-duration: 0.4s;
+  z-index: 5;
+}
+
+@keyframes modalFade {
+    from {opacity: 0;}
+    to {opacity: 1;}
+  }
+ 

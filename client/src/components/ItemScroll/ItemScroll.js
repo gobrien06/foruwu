@@ -1,27 +1,44 @@
-import React from "react";
+import React, { useState } from "react";
 import { useUserStore } from "../../store";
+import ItemModal from "../ItemModal/ItemModal";
+
 import "./ItemScroll.css";
 
 const ItemHolder = (item, index, sameUser) => {
+  const [isOpen, setOpen] = useState(false);
+
   const remoteRemove = () => {
     console.log("removehere");
   };
+
+  const toggle = () => {
+    setOpen(!isOpen);
+    console.log(isOpen);
+  };
+
   return (
-    <div className="itemContain">
-      <h3 className="sName">{item.title}</h3>
-      <h3 style={{ marginLeft: `auto` }}>Paying: ${item.value}</h3>
-      <h3 style={{ marginLeft: `auto`, fontWeight: `500`, marginRight:`3vh` }}>
-        Quantity: {item.quant}
-      </h3>
-      {sameUser && (
+    <>
+      <div className="itemContain" onClick={() => toggle()}>
+        <h3 className="sName">{item.title}</h3>
+        <h3 style={{ marginLeft: `auto` }}>Paying: ${item.value}</h3>
         <h3
-          style={{ marginLeft: `auto`, marginRight: `3vw` }}
-          onClick={remoteRemove}
+          style={{ marginLeft: `auto`, fontWeight: `500`, marginRight: `3vh` }}
         >
-          x
+          Quantity: {item.quant}
         </h3>
-      )}
-    </div>
+        {sameUser && (
+          <h3
+            style={{ marginLeft: `auto`, marginRight: `3vw` }}
+            onClick={remoteRemove}
+          >
+            x
+          </h3>
+        )}
+      </div>
+      {!sameUser &&  (
+          <ItemModal isOpen={isOpen} toggle={toggle} item={item} />
+        )}
+    </>
   );
 };
 
