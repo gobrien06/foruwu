@@ -1,7 +1,7 @@
 .itemContain {
     border-radius: 15px;
     height: 10vh;
-    width: 70vw;
+    width: 50vw;
     margin: auto;
     margin-bottom: 3vh;
     padding-left: 1vw;
@@ -11,5 +11,15 @@
     text-align: left;
     display: flex;
     justify-content: baseline;
+  }
+
+  .itemContain:hover {
+    transform: scale(1.005);
+    transition-timing-function: ease;
+  }
+  
+  .itemContain:hover > .sName {
+    transition: color 0.16s ease;
+    color: var(--green);
   }
   

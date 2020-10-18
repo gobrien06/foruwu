@@ -1,16 +1,41 @@
 import React from "react";
-import {Fade} from 'react-reveal';
+import { Fade } from "react-reveal";
 import ItemScroll from "../components/ItemScroll/ItemScroll";
-import { useMarketsStore } from "../store";
+import { useMarketsStore, useUserStore } from "../store";
 
-const StorePage = (id) => {
-  const store = useMarketsStore((state)=>state.stores.find(ele => ele.id = id));
-    return(
-        <Fade top>
-        <h1>Welcome to ${store.name}'s forwarding service.</h1>
-        <ItemScroll/>
-        </Fade>
-    )
+const StorePage = (props) => {
+  const id = props.match.params.id;
+  const userId = useUserStore((state) => state.token);
+  const userSame = (userId === id);
+  const store = useMarketsStore((state) =>
+    state.stores.find((ele) => ele.id === id)
+  );
+
+  const addItem = () =>{
+
+  }
+
+  return (
+    <>
+      <Fade top>
+      {!userSame  ?<>
+        <h2>Welcome to {store.name}'s forwarding wishlist.</h2>
+        <h3>Select anything you'd be able to forward, and we'll get you connected!</h3>
+        </>
+        : <><h2>Welcome to your forwarding requests!</h2><h3>Post any items you want forwarded!</h3></>}
+      </Fade>
+      <br />
+      <Fade bottom>
+        <div className="bottom">
+        <ItemScroll store={store} />
+        <br/>
+        {userSame && <button type="button" className="addButton" onClick={addItem}>
+        +
+      </button>}
+      </div>
+      </Fade>
+    </>
+  );
 };
 
 export default StorePage;

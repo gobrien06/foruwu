@@ -29,7 +29,7 @@ const Bazaar = () => {
     <>
       <Fade top>
         {stores ? (
-          <h1>Trusted Sellers</h1>
+          <h1>Trusted Buyers</h1>
         ) : (
           <h1>There's no stores yet! Set up your store under your profile.</h1>
         )}{" "}

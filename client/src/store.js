@@ -11,7 +11,7 @@ const INIT_USER = {
   password: "",
   storeID: "",
   location: "",
-  token: "",
+  token: "GDFG",
   store: "", // storeID is given
   error: "",
   register: "",
@@ -22,13 +22,22 @@ const INIT_MARKET = {
     {
       name: "Tim Doe",
       location: "United States",
-      items: [],
-      id:`321AAA`
+      items: [
+        { title: "Bakugan", value: "4.00", quant: 12 },
+        { title: "Pokemon Cards", value: "5.00", quant: 20 },
+      ],
+      id: `321AAA`,
     },
     {
       name: "Smooth Groove",
-      id:`32BAAA`
+      id: `32BAAA`,
+      items: [],
     },
+    {
+      name:`this test account`,
+      id:`GDFG`,
+      items:[],
+    }
   ],
 };
 
@@ -51,7 +60,7 @@ export const useUserStore = create((set, get) => ({
 export const useMarketsStore = create((set, get) => ({
   ...INIT_MARKET,
   getStores: (state) => getStores(set, state),
-  setStores: (newS) => set({stores:newS}),
+  setStores: (newS) => set({ stores: newS }),
 }));
 
 //REQUESTS
@@ -79,7 +88,7 @@ const registerUser = async (set, profile) => {
     });
 
   if (profile.token && profile.token.length > 1) set({ isAuthenticated: true });
-  set({error:"Incorrect credentials. Please try again."});
+  set({ error: "Incorrect credentials. Please try again." });
 };
 
 const login = async (set, user) => {
@@ -92,7 +101,7 @@ const login = async (set, user) => {
   console.log("got the userdate as ", userData);
   await axios
     .post(`${develop}/users/login`, userData)
-    .then(async(res) => {
+    .then(async (res) => {
       console.log("response " + JSON.stringify(res.data.id));
       await set({ token: res.data.id });
     })
@@ -124,7 +133,6 @@ const getStores = async (set, USER) => {
   console.log("stores after request: ", USER.stores);
 };
 
-
-const addItem = async(set,USER) =>{
+const addItem = async (set, USER) => {
   if (!USER || !USER.token) return [];
-}
+};

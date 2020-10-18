@@ -27,7 +27,7 @@ function App() {
         <AuthRoute exact path="/bazaar" component={Bazaar} />
         <AuthRoute exact path="/products" component={Products} />
         <AuthRoute exact path="/profile" component={Profile} />
-        <AuthRoute exact path="/store/:ID" component={StorePage}/>
+        <AuthRoute path="/user/:id" component={StorePage}/>
       </Switch>
     </div>
   );

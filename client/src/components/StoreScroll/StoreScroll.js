@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { useMarketsStore } from "../../store";
+import { useMarketsStore, useUserStore } from "../../store";
 import "./StoreScroll.css";
 
 const StoreScrollItem = (store, key, index) => {
@@ -32,10 +32,12 @@ const StoreScrollItem = (store, key, index) => {
 };
 
 const StoreScroll = (stores) => {
+  const userId = useUserStore((state)=>state.token);
   const createNew = (stores) => {
     console.log(stores);
     if (!stores || stores.length < 1) return [];
     return stores.map((store, index) => {
+      if(store.id ===  userId) return;
       return StoreScrollItem(store, index, index);
     });
   };
