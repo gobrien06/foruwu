@@ -5,7 +5,11 @@ import { useHistory } from "react-router-dom";
 import { Fade } from "react-reveal";
 
 const Signup = () => {
-  const [state, setState] = useState({ email: "", password: "", location: "United States of America" });
+  const [state, setState] = useState({
+    email: "",
+    password: "",
+    location: "United States of America",
+  });
   const history = useHistory();
   const isAuth = useUserStore((state) => state.isAuthenticated);
   const errors = useUserStore((state) => state.errors);
@@ -15,11 +19,12 @@ const Signup = () => {
   const token = useUserStore((state) => state.token);
 
   const checkAuth = () => {
-    console.log("MY TOKEN IS " + token);
     if (isAuth) {
-      setLoading(false);
+      console.log("WE ARE AUTH THO");
       history.push("/bazaar");
     }
+    console.log("WE ARE AUNOT TH THO");
+
   };
 
   /*
@@ -41,10 +46,6 @@ const Signup = () => {
     }));
   };
 
-  const handleSelectorChange = (event) =>{
-    setState({location: event.target.value});
-  }
-  
   const handleSubmit = async (event) => {
     event.preventDefault();
     setLoading(true);
@@ -57,86 +58,87 @@ const Signup = () => {
     await setForm(user);
     await register(user);
     setState({
-      first: '',
-      last: '',
-      location: '',
-      email:'',
-      password:'',
-    })
+      first: "",
+      last: "",
+      location: "",
+      email: "",
+      password: "",
+    });
     setLoading(false);
   };
 
-  useEffect(checkAuth, [isAuth]);
+  useEffect(checkAuth, [token]);
 
   //add <h3>Let's get started.</h3> later
   return (
     <>
       <Fade top>
-      <h1>Sign Up</h1>
-      <div className="inputContain">
-        <form onSubmit={handleSubmit}>
-          <input
-            name="first"
-            placeholder="First Name"
-            onChange={handleInputChange}
-            value={state.name}
-            required
-          />
-          <br />
-          <input
-            name="last"
-            placeholder="Last Name"
-            value={state.name}
-            onChange={handleInputChange}
-            required
-          />
-          <br />
-          <input 
-          type="location"
-          name="location"
-          onChange={handleInputChange}
-          value={state.location}
-          required/>
-          <br />
-          <input
-            type="email"
-            name="email"
-            placeholder="Email"
-            onChange={handleInputChange}
-            value={state.email}
-            required
-          />
-          <br />
-          <input
-            name="password"
-            type="password"
-            placeholder="Password"
-            onChange={handleInputChange}
-            required
-          />
+        <h1>Sign Up</h1>
+        <div className="inputContain">
+          <form onSubmit={handleSubmit}>
+            <input
+              name="first"
+              placeholder="First Name"
+              onChange={handleInputChange}
+              value={state.name}
+              required
+            />
+            <br />
+            <input
+              name="last"
+              placeholder="Last Name"
+              value={state.name}
+              onChange={handleInputChange}
+              required
+            />
+            <br />
+            <input
+              type="location"
+              name="location"
+              onChange={handleInputChange}
+              value={state.location}
+              required
+            />
+            <br />
+            <input
+              type="email"
+              name="email"
+              placeholder="Email"
+              onChange={handleInputChange}
+              value={state.email}
+              required
+            />
+            <br />
+            <input
+              name="password"
+              type="password"
+              placeholder="Password"
+              onChange={handleInputChange}
+              required
+            />
 
+            <center>
+              <button className="submitButton" type="submit">
+                Sign Up
+              </button>
+            </center>
+          </form>
+
+          <p>{errors}</p>
+          <p>{token}</p>
           <center>
-            <button className="submitButton" type="submit">
-              Sign Up
-            </button>
+            <br />
+            <p>
+              Already have an account?{" "}
+              <Link
+                to={"/signin"}
+                style={{ color: `var(--blue)`, textDecoration: `underline` }}
+              >
+                Login
+              </Link>
+            </p>
           </center>
-        </form>
-
-        <p>{errors}</p>
-        <p>{token}</p>
-        <center>
-          <br />
-          <p>
-            Already have an account?{" "}
-            <Link
-              to={"/signin"}
-              style={{ color: `var(--blue)`, textDecoration: `underline` }}
-            >
-              Login
-            </Link>
-          </p>
-        </center>
-      </div>
+        </div>
       </Fade>
 
       <Fade bottom>

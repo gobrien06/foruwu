@@ -5,40 +5,16 @@ const develop = "http://34.71.45.121";
 
 const INIT_USER = {
   loadingProfile: false,
-  isAuthenticated: true,
+  isAuthenticated: false,
   name: "",
   email: "",
   password: "",
   storeID: "",
   location: "",
-  token: "GDFG",
-  store: "", // storeID is given
+  token: "",
+  stores: [],
   error: "",
   register: "",
-};
-
-const INIT_MARKET = {
-  stores: [
-    {
-      name: "Tim Doe",
-      location: "United States",
-      items: [
-        { title: "Bakugan", value: "4.00", quant: 12 },
-        { title: "Pokemon Cards", value: "5.00", quant: 20 },
-      ],
-      id: `321AAA`,
-    },
-    {
-      name: "Smooth Groove",
-      id: `32BAAA`,
-      items: [],
-    },
-    {
-      name:`this test account`,
-      id:`GDFG`,
-      items:[],
-    }
-  ],
 };
 
 export const useUserStore = create((set, get) => ({
@@ -50,21 +26,21 @@ export const useUserStore = create((set, get) => ({
       password: input.password,
       location: input.location,
     }),
-  login: (state) => login(set, state),
+  login: (state) => login(set, state, get),
   logout: (state) => logout(set, state),
-  register: (state) => registerUser(set, state),
+  register: (input) => registerUser(set, input),
   setLoading: (input) => set({ loading: input }),
   setError: (input) => set({ error: input }),
-}));
-
-export const useMarketsStore = create((set, get) => ({
-  ...INIT_MARKET,
-  getStores: (state) => getStores(set, state),
+  getStores: (input) => getStores(set, input),
   setStores: (newS) => set({ stores: newS }),
+  getItems: (input) => getItems(set, input),
+  addItem: (newItem) => addItem(set, newItem),
 }));
 
 //REQUESTS
+//REGISTER NEW USER
 const registerUser = async (set, profile) => {
+  set({ loadingProfile: true });
   var userData = {
     name: profile.name,
     cred: {
@@ -73,66 +49,97 @@ const registerUser = async (set, profile) => {
     },
     location: profile.location,
   };
-  console.log("data " + userData);
-  await axios
-    .post(`${develop}/users/register`, userData)
-    .then((res) => {
-      console.log(JSON.stringify(res));
-      let tokenNew = res.id;
-      console.log("token " + tokenNew);
-      set({ token: tokenNew });
-    })
-    .catch((err) => {
-      console.log("Error ", err);
-      set({ error: err });
-    });
-
-  if (profile.token && profile.token.length > 1) set({ isAuthenticated: true });
-  set({ error: "Incorrect credentials. Please try again." });
+  console.log("data ", userData);
+  try {
+    const response = await axios.post(`${develop}/users/register`, userData);
+    set({ token: response.data.id, isAuthenticated: true });
+  } catch (err) {
+    console.log(err);
+  }
+  set({ loadingProfile: false });
 };
 
+//LOGIN
 const login = async (set, user) => {
-  if (user.token && user.token.length > 1) set({ isAuthenticated: true });
   set({ loadingProfile: true });
   var userData = {
     email: user.email,
     password: user.password,
   };
-  console.log("got the userdate as ", userData);
-  await axios
-    .post(`${develop}/users/login`, userData)
-    .then(async (res) => {
-      console.log("response " + JSON.stringify(res.data.id));
-      await set({ token: res.data.id });
-    })
-    .catch((err) => {
-      console.log("Error ", err);
-      set({ error: err });
-    });
-  console.log("usrtkn" + user.token);
-  if (user.token && user.token.length > 1) set({ isAuthenticated: true });
+  console.log("userdata ", userData);
+  try {
+    let response = await axios.post(`${develop}/users/login`, userData);
+    console.log("response token", response.data.id);
+    set({ token: response.data.id, isAuthenticated: true });
+
+    await axios
+      .post(`${develop}/users/personal`, userData, {
+        headers: { Authorization: "Bearer " + response.data.id },
+      })
+      .then((res) => {
+        console.log("response data", res.data);
+        set(res.data);
+      });
+  } catch (error) {
+    console.log("Error ", error);
+  }
   set({ loadingProfile: false });
 };
 
-const logout = async (set, user) => {
-  set({ token: "", isAuthenticated: false });
+//LOGOUT
+const logout = async (set) => {
+  set({ ...INIT_USER, isAuthenticated: false });
 };
 
-const getStores = async (set, USER) => {
-  if (!USER || !USER.token) return [];
+//GET STORES IDS
+const getStores = async (set, token) => {
+  console.log("CALLING GETSTORES");
+  console.log("TKN", token);
   await axios
-    .post(`${develop}/stores`, USER.token)
+    .get(`${develop}/stores`, {
+      headers: { Authorization: "Bearer " + token },
+    })
     .then((res) => {
-      console.log("stores from response", res.data);
-      set(res.data.stores);
+      console.log("stores from response", res);
+      set(res.data);
     })
     .catch((err) => {
       console.log("Error ", err);
       set({ error: err });
     });
-  console.log("stores after request: ", USER.stores);
 };
 
-const addItem = async (set, USER) => {
-  if (!USER || !USER.token) return [];
+const getItems = async (set, logins) => {
+  console.log("TOLEM", logins.token, "ID", logins.id);
+  await axios
+    .get(`${develop}/stores/getItems?id=${logins.id}`, {
+      headers: { Authorization: "Bearer " + logins.token },
+    })
+    .then((res) => {
+      console.log("items from response", res);
+
+      set({ items: res.data.items });
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+};
+
+const addItem = async (set, info) => {
+  console.log("INFO SENT", info);
+  let newPost = {
+    name: info.name,
+    price: info.price,
+  };
+  await axios
+    .post(`${develop}/stores/addItem`, newPost, {
+      headers: { Authorization: "Bearer " + info.token },
+    })
+    .then((res) => {
+      console.log("items from adding item", res);
+      set({ items: res.data.items });
+    })
+    .catch((err) => {
+      console.log(err);
+    });
 };

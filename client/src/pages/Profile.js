@@ -8,6 +8,7 @@ const Profile = () => {
   const logout = useUserStore((state) => state.logout);
   const user = useUserStore((state) => state);
   const addItem = useUserStore((state) => state.addItem);
+  
   return (
     <Fade top>
       <h1>Your Account</h1>
@@ -17,14 +18,14 @@ const Profile = () => {
       <h3>Location: {user.location}</h3>
       <br/>
       <br/>
-      <Link to={`/user/${user.token}`}>
-      <button type="button" className="addButton" onClick={addItem}>
+      <Link to={`/user/${user.id}`}>
+      <button type="button" className="addButton" onClick={() => addItem}>
         Your Store
       </button>
       </Link>
+      <br /> 
       <br />
-      <br />
-      <button type="button" className="submitButton" onClick={logout}>
+      <button type="button" className="submitButton" onClick={() => logout}>
         Logout
       </button>
     </Fade>

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useUserStore, useMarketsStore } from "../../store";
+import { useUserStore } from "../../store";
 
 import "./ModalStyles.css";
 
@@ -13,7 +13,8 @@ const AddButton = ({ toggleOpen }) => {
 
 const AddModal = ({ isOpen, toggleClose }) => {
   const [state, setState] = useState("");
-  const submitItem = useMarketsStore((state) => state.submitItem);
+  const token = useUserStore((state) => state.token);
+  const addItem = useUserStore((state) => state.addItem);
   const handleInputChange = (event) => {
     const { value, name } = event.target;
     setState((prevState) => ({
@@ -26,9 +27,10 @@ const AddModal = ({ isOpen, toggleClose }) => {
     event.preventDefault();
     const item = {
       name: state.name,
-      price: state.price,
+      price: parseFloat(state.price),
+      token: token,
     };
-    await submitItem(item);
+    await addItem(item);
     setState({
       name: "",
       price: "",

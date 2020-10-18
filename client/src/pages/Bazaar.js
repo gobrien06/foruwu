@@ -1,11 +1,14 @@
 import React, { useEffect } from "react";
 import { Fade } from "react-reveal";
-import { useMarketsStore, useUserStore } from "../store";
+import {  useUserStore } from "../store";
 import StoreScroll from "../components/StoreScroll/StoreScroll";
 
 const Bazaar = () => {
-  const getStores = useMarketsStore((state) => state.getStores);
-  const stores = useMarketsStore((state) => state.stores);
+  const getStores = useUserStore((state) => state.getStores);
+  const setStores = useUserStore((state) => state.setStores);
+  const stores = useUserStore((state) => state.stores);
+  const token = useUserStore((state)=>state.token);
+  const userId = useUserStore((state)=>state.id);
   const setLoading = useUserStore((state) => state.setLoading);
 
   useEffect(() => {
@@ -13,7 +16,7 @@ const Bazaar = () => {
     const getData = async () => {
       try {
         setLoading(true);
-        if (!isCancelled) await getStores();
+        if (!isCancelled) await getStores(token);
       } catch (error) {
         if (!isCancelled) console.log(error);
       } finally {
@@ -25,6 +28,8 @@ const Bazaar = () => {
       isCancelled = true;
     };
   }, []);
+
+
   return (
     <>
       <Fade top>
@@ -36,7 +41,7 @@ const Bazaar = () => {
       </Fade>
       <Fade bottom>
         <div className="holdStore">
-        <StoreScroll stores={stores} />
+        <StoreScroll stores={stores} setStores={setStores} id={userId}/>
         </div>
       </Fade>
     </>
