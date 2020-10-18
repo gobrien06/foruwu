@@ -29,13 +29,15 @@ const Bazaar = () => {
     <>
       <Fade top>
         {stores ? (
-          <h1>Store Page</h1>
+          <h1>Trusted Sellers</h1>
         ) : (
           <h1>There's no stores yet! Set up your store under your profile.</h1>
         )}{" "}
       </Fade>
-      <Fade left>
+      <Fade bottom>
+        <div className="holdStore">
         <StoreScroll stores={stores} />
+        </div>
       </Fade>
     </>
   );

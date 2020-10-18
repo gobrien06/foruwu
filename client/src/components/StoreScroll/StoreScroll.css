@@ -1,16 +1,39 @@
-.storeContain{
-    border-radius:15px;
-    height:50vh;
-    width:35vw;
-    margin:auto;
-    margin-bottom:3vh;
-    color:Black;
-    background-color: white;
-    text-align:center;
+.storeContain {
+  border-radius: 15px;
+  height: 10vh;
+  width: 70vw;
+  margin: auto;
+  margin-bottom: 3vh;
+  padding-left: 1vw;
+  color: Black;
+  background-color: white;
+  box-shadow: 2px 1px 3px var(--tertiaryFill);
+  text-align: left;
+  display: flex;
+  justify-content: baseline;
 }
 
-.header{
-    height:15vh;
-    border-radius:15px;
-    background-color: var(--pink);
+.storeContain:hover {
+  transform: scale(1.005);
+  transition-timing-function: ease;
+}
+
+.storeContain:hover > .sName {
+  transition: color 0.16s ease;
+  color: var(--blue);
+}
+
+.header {
+  height: 15vh;
+  border-radius: 15px;
+}
+
+.holdRight {
+  margin-left: auto;
+  margin-right: 3vw;
+}
+
+.holdStore {
+  height: 70vh;
+  overflow-y: scroll;
 }

@@ -1,15 +1,28 @@
 import React from "react";
+import { useMarketsStore } from "../../store";
 import "./StoreScroll.css";
 
 const StoreScrollItem = (store, key, index) => {
+  const stores = useMarketsStore((state) => state.stores);
+  const setStores = useMarketsStore((state) => state.setStores);
+
+  const localRemove = (index) => {
+    setStores(stores.slice(index, 1));
+  };
+
   return (
     <div className="storeContain" key={index}>
-      <div className="header">
-      <h3>{store.name}</h3>
-      </div>
+      <h3 className="sName">{store.name}</h3>
       <br />
-      <h3>{store.location}</h3>
-      <div className="footer" />
+      <h3 style={{ marginLeft: `auto`, marginRight: `3vw` }}>
+        {store.location}
+      </h3>
+      <h3
+        style={{ marginLeft: `auto`, marginRight: `3vw` }}
+        onClick={localRemove}
+      >
+        x
+      </h3>
     </div>
   );
 };

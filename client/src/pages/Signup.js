@@ -55,7 +55,6 @@ const Signup = () => {
       password: state.password,
     };
     await setForm(user);
-    console.log("user in component" + user);
     await register(user);
     setState({
       first: '',

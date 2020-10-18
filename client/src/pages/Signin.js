@@ -32,18 +32,15 @@ const Signin = () => {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    setLoading(true);
     const user = {
       email: state.email,
       password: state.password,
     };
     await login(user);
-    console.log("user in component" + user);
     setState({
       email: "",
       password: "",
     });
-    setLoading(false);
   };
 
   useEffect(()=>{
