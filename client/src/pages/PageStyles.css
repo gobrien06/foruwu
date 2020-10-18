@@ -250,7 +250,7 @@ select{
 
 .submitButton {
   width: 10vw;
-  border-radius: 25px;
+  border-radius: 15px;
   padding: 10px 10px;
   font-weight: 600;
   margin-top: 1vh;
@@ -258,4 +258,22 @@ select{
   border: none;
   color: white;
   font-size: 1.1rem;
+}
+
+.portalDivide{
+  position: relative;
+  width:50%;
+  color: var(--blue);
+}
+
+.addButton{
+  height: 5vh;
+  border-radius: 10px;
+  width: 10vw;
+  border: 0;
+  box-shadow: 2px 2px 5px var(--secondaryFill);
+  background: white;
+  margin-bottom:3vh;
+  text-align: center;
+  font-size: 1rem;
 }

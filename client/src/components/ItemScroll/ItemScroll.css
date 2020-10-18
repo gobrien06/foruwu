@@ -1,0 +1,15 @@
+.itemContain {
+    border-radius: 15px;
+    height: 10vh;
+    width: 70vw;
+    margin: auto;
+    margin-bottom: 3vh;
+    padding-left: 1vw;
+    color: Black;
+    background-color: white;
+    box-shadow: 2px 1px 3px var(--tertiaryFill);
+    text-align: left;
+    display: flex;
+    justify-content: baseline;
+  }
+  

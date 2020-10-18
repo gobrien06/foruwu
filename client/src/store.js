@@ -23,9 +23,11 @@ const INIT_MARKET = {
       name: "Tim Doe",
       location: "United States",
       items: [],
+      id:`321AAA`
     },
     {
       name: "Smooth Groove",
+      id:`32BAAA`
     },
   ],
 };
@@ -121,3 +123,8 @@ const getStores = async (set, USER) => {
     });
   console.log("stores after request: ", USER.stores);
 };
+
+
+const addItem = async(set,USER) =>{
+  if (!USER || !USER.token) return [];
+}
